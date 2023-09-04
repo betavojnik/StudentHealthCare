@@ -15,6 +15,7 @@ import com.example.studenthealthcare.ui.dao.StudentDAO
 import com.example.studenthealthcare.ui.database.FacultyDB
 import com.example.studenthealthcare.ui.model.Student
 import com.example.studenthealthcare.ui.model.Vaccine
+import com.example.studenthealthcare.ui.relations.StudentVaccineCrossRef
 import com.google.android.material.snackbar.Snackbar
 import com.klinker.android.link_builder.Link
 import com.klinker.android.link_builder.applyLinks
@@ -41,14 +42,32 @@ class LogInActivity : AppCompatActivity() {
             Vaccine("1", "AH1", 15)
         )
 
+        val ref : List<StudentVaccineCrossRef> = listOf(
+            StudentVaccineCrossRef("2", "1")
+        )
+
 
 
         lifecycleScope.launch {
             students.forEach{ dao.insertStudent(it)}
             vaccines.forEach{ dao.insertVaccine(it)}
+            ref.forEach { dao.insertStudentVaccineCrossRef(it) }
         }
 
         linkSetup()
+
+        binding.loginButton.setOnClickListener {
+
+            if(binding.usernameEditText.text.toString().isNullOrEmpty()) {
+                Snackbar.make(binding.root, "Prazno je", Snackbar.LENGTH_LONG).show()
+            }
+            else {
+                lifecycleScope.launch {
+                   val pronadjeni = dao.getVaccinesForStudent(binding.usernameEditText.text.toString())
+                    Snackbar.make(binding.root, "velicina je ${pronadjeni.first().Student.Name}", Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
 
     }
 

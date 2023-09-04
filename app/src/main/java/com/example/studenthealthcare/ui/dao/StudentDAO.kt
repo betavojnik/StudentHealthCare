@@ -1,5 +1,6 @@
 package com.example.studenthealthcare.ui.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -29,4 +30,7 @@ interface StudentDAO {
     @Transaction
     @Query("SELECT * FROM student WHERE  StudentId= :StudentId ")
     suspend fun getVaccinesForStudent(StudentId: String): List<StudentWithVaccines>
+
+    @Query("SELECT * FROM Student where Name = :Name ")
+    suspend fun getAllArticles(Name: String) : List<Student>
 }
