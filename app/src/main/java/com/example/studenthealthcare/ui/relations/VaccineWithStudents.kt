@@ -14,5 +14,5 @@ data class VaccineWithStudents(
         associateBy = Junction(StudentVaccineCrossRef::class)
     )
 
-    val vaccines: List<Vaccine>
+    val students: List<Student>
 )

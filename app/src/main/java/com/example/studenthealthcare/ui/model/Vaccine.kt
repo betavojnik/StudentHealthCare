@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Vaccine (
-    @PrimaryKey(autoGenerate = true)
-    val Id : String,
+    @PrimaryKey(autoGenerate = false)
+    val VaccineId : String,
     val Name: String,
     val MonthsLast: Int
     )

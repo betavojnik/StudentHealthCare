@@ -1,5 +1,6 @@
 package com.example.studenthealthcare.ui.dao
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -10,6 +11,7 @@ import com.example.studenthealthcare.ui.relations.StudentVaccineCrossRef
 import com.example.studenthealthcare.ui.relations.StudentWithVaccines
 import com.example.studenthealthcare.ui.relations.VaccineWithStudents
 
+@Dao
 interface StudentDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -22,9 +24,9 @@ interface StudentDAO {
     suspend fun insertStudentVaccineCrossRef(crossRef: StudentVaccineCrossRef)
 
     @Transaction
-    @Query("SELECT * FROM Student WHERE Id = :vaccineId ")
+    @Query("SELECT * FROM vaccine WHERE VaccineId = :vaccineId ")
     suspend fun getStudentsForVaccine(vaccineId: String): List<VaccineWithStudents>
     @Transaction
-    @Query("SELECT * FROM Student WHERE Id = :StudentId ")
+    @Query("SELECT * FROM student WHERE  StudentId= :StudentId ")
     suspend fun getVaccinesForStudent(StudentId: String): List<StudentWithVaccines>
 }

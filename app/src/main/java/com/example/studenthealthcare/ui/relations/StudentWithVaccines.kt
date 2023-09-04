@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.example.studenthealthcare.ui.model.Student
+import com.example.studenthealthcare.ui.model.Vaccine
 
 data class StudentWithVaccines (
     @Embedded val Student: Student,
@@ -13,5 +14,5 @@ data class StudentWithVaccines (
         associateBy = Junction(StudentVaccineCrossRef::class)
     )
 
-    val students: List<Student>
+    val vaccines: List<Vaccine>
 )
