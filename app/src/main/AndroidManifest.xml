@@ -13,7 +13,7 @@
         android:theme="@style/Theme.StudentHealthCare"
         tools:targetApi="31" >
         <activity
-            android:name=".ui.LogInActivity"
+            android:name=".ui.screens.LogInActivity"
             android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
         </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.screens.MainActivity"
             android:exported="true" >
 
         </activity>

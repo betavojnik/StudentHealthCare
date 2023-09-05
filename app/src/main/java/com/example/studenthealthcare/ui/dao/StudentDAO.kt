@@ -31,6 +31,6 @@ interface StudentDAO {
     @Query("SELECT * FROM student WHERE  StudentId= :StudentId ")
     suspend fun getVaccinesForStudent(StudentId: String): List<StudentWithVaccines>
 
-    @Query("SELECT * FROM Student where Name = :Name ")
-    suspend fun getAllArticles(Name: String) : List<Student>
+    @Query("SELECT * FROM Student WHERE Name = :Name LIMIT 1")
+    suspend fun getStudentByName(Name: String): Student?
 }

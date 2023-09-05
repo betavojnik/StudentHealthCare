@@ -1,15 +1,10 @@
-package com.example.studenthealthcare.ui
+package com.example.studenthealthcare.ui.screens
 
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.ClickableSpan
-import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
-import com.example.studenthealthcare.R
 import com.example.studenthealthcare.databinding.ActivityLogInBinding
 import com.example.studenthealthcare.ui.dao.StudentDAO
 import com.example.studenthealthcare.ui.database.FacultyDB
@@ -63,8 +58,16 @@ class LogInActivity : AppCompatActivity() {
             }
             else {
                 lifecycleScope.launch {
-                   val pronadjeni = dao.getVaccinesForStudent(binding.usernameEditText.text.toString())
-                    Snackbar.make(binding.root, "velicina je ${pronadjeni.first().Student.Name}", Snackbar.LENGTH_LONG).show()
+                   val pronadjeni = dao.getStudentByName(binding.usernameEditText.text.toString())
+                    if (pronadjeni != null) {
+                        val intent = Intent(this@LogInActivity, MainActivity::class.java)
+
+                        // Add the logged-in Student as an extra to the Intent
+                        intent.putExtra("loggedStudent", pronadjeni)
+
+                        // Start MainActivity with the Intent
+                        startActivity(intent)
+                    }
                 }
             }
         }

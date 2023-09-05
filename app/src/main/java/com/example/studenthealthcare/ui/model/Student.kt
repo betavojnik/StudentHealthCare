@@ -2,6 +2,7 @@ package com.example.studenthealthcare.ui.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class Student(
@@ -11,4 +12,4 @@ data class Student(
     val Surname: String,
     val YearOfEnrollment: Int,
     val YearOfStudy: Int
-)
+) : Serializable
