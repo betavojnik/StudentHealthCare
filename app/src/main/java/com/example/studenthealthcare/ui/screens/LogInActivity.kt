@@ -28,26 +28,13 @@ class LogInActivity : AppCompatActivity() {
 
         val dao: StudentDAO = FacultyDB.getInstance(this).studentDAO
 
-        val students : List<Student> = listOf(
-            Student("1", "Nedeljko", "Babic", 2020, 3),
-            Student("2", "Marko", "Markovic", 2020, 3)
-        )
-
-        val vaccines : List<Vaccine> = listOf(
-            Vaccine("1", "AH1", 15)
-        )
-
-        val ref : List<StudentVaccineCrossRef> = listOf(
-            StudentVaccineCrossRef("2", "1")
-        )
+        lifecycleScope.launch{
+             dao.deleteAllCrossRef()
+             dao.deleteAllStudents()
+             dao.deleteAllVaccines()
 
 
-
-        lifecycleScope.launch {
-            students.forEach{ dao.insertStudent(it)}
-            vaccines.forEach{ dao.insertVaccine(it)}
-            ref.forEach { dao.insertStudentVaccineCrossRef(it) }
-        }
+         }
 
         linkSetup()
 

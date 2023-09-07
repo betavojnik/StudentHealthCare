@@ -1,6 +1,5 @@
 package com.example.studenthealthcare.ui.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -33,4 +32,13 @@ interface StudentDAO {
 
     @Query("SELECT * FROM Student WHERE Name = :Name LIMIT 1")
     suspend fun getStudentByName(Name: String): Student?
+
+    @Query("DELETE FROM Student")
+    suspend fun deleteAllStudents()
+
+    @Query("DELETE FROM Vaccine")
+    suspend fun deleteAllVaccines()
+
+    @Query("DELETE FROM StudentVaccineCrossRef")
+    suspend fun deleteAllCrossRef()
 }

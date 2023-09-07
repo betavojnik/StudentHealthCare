@@ -8,6 +8,8 @@ import java.io.Serializable
 data class Student(
     @PrimaryKey(autoGenerate = false)
     val StudentId : String,
+    val Username : String,
+    val Password : String,
     val Name: String,
     val Surname: String,
     val YearOfEnrollment: Int,
