@@ -11,10 +11,15 @@ import com.example.studenthealthcare.databinding.LoginLayoutBinding
 import com.example.studenthealthcare.databinding.ProfileLayoutBinding
 import com.example.studenthealthcare.ui.dao.StudentDAO
 import com.example.studenthealthcare.ui.database.FacultyDB
+import com.example.studenthealthcare.ui.model.Student
+import com.example.studenthealthcare.ui.model.Vaccine
+import com.example.studenthealthcare.ui.relations.StudentVaccineCrossRef
 import com.google.android.material.snackbar.Snackbar
 import com.klinker.android.link_builder.Link
 import com.klinker.android.link_builder.applyLinks
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginFragment :  Fragment(R.layout.login_layout) {
 
@@ -25,15 +30,29 @@ class LoginFragment :  Fragment(R.layout.login_layout) {
 
         binding = LoginLayoutBinding.bind(view)
 
-        val dao: StudentDAO = FacultyDB.getInstance(this).studentDAO
+        val dao: StudentDAO = FacultyDB.getInstance(requireActivity()).studentDAO
+        val students : List<Student> = listOf(
+            Student("1", "Nedeljko", "idegas", "neso", "babic", 2020,3),
+            Student("2", "Marko", "Markovic", "neso", "babic", 2020,3)
+        )
+        val vaccines : List<Vaccine> = listOf(
+            Vaccine("1", "AH1", 15)
+        )
 
-        lifecycleScope.launch{
-            dao.deleteAllCrossRef()
-            dao.deleteAllStudents()
-            dao.deleteAllVaccines()
+        val ref : List<StudentVaccineCrossRef> = listOf(
+            StudentVaccineCrossRef("2", "1")
+        )
 
+
+
+        lifecycleScope.launch {
+
+                students.forEach { dao.insertStudent(it) }
+                vaccines.forEach { dao.insertVaccine(it) }
+                ref.forEach { dao.insertStudentVaccineCrossRef(it) }
 
         }
+
 
         linkSetup()
 
@@ -46,7 +65,7 @@ class LoginFragment :  Fragment(R.layout.login_layout) {
                 lifecycleScope.launch {
                     val pronadjeni = dao.getStudentByName(binding.usernameEditText.text.toString())
                     if (pronadjeni != null) {
-                        val intent = Intent(this@LoginFragment, MainActivity::class.java)
+                        val intent = Intent(requireActivity(), MainActivity::class.java)
 
                         // Add the logged-in Student as an extra to the Intent
                         intent.putExtra("loggedStudent", pronadjeni)
@@ -66,13 +85,17 @@ class LoginFragment :  Fragment(R.layout.login_layout) {
             .setTextColor(Color.BLUE)
             .setUnderlined(true)
             .setOnClickListener {
-                Intent(this, MainActivity::class.java).also {
-                    startActivity(it)
+                val targetFragment = RegisterFragment()
+
+                val transaction = childFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragment_container, targetFragment) // Replace 'fragment_container' with your container view's ID
+                transaction.addToBackStack(null) // Allow navigating back
+                transaction.commit()
                 }
-            }
+
 
         binding.textView.applyLinks(anotherActivity)
     }
 
-    }
+
 }

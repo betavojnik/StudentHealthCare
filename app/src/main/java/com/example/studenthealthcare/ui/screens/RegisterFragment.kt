@@ -6,15 +6,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.studenthealthcare.R
 import com.example.studenthealthcare.databinding.ProfileLayoutBinding
+import com.example.studenthealthcare.databinding.ReigsterLayoutBinding
 
-class RegisterFragment : Fragment(R.layout.profile_layout) {
+class RegisterFragment : Fragment(R.layout.reigster_layout) {
 
-    lateinit var binding : ProfileLayoutBinding
+    lateinit var binding : ReigsterLayoutBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = ProfileLayoutBinding.bind(view)
+        binding = ReigsterLayoutBinding.bind(view)
 
 
 
