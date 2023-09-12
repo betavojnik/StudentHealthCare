@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.studenthealthcare.R
 import com.example.studenthealthcare.databinding.LoginLayoutBinding
 import com.example.studenthealthcare.databinding.ProfileLayoutBinding
@@ -65,13 +66,17 @@ class LoginFragment :  Fragment(R.layout.login_layout) {
                 lifecycleScope.launch {
                     val pronadjeni = dao.getStudentByName(binding.usernameEditText.text.toString())
                     if (pronadjeni != null) {
-                        val intent = Intent(requireActivity(), MainActivity::class.java)
 
-                        // Add the logged-in Student as an extra to the Intent
-                        intent.putExtra("loggedStudent", pronadjeni)
 
-                        // Start MainActivity with the Intent
-                        startActivity(intent)
+                        val bundle = Bundle().apply {
+                            putSerializable("loggedStudent", pronadjeni)
+                        }
+
+
+                        findNavController().navigate(
+                            R.id.action_loginFragment_to_profileFragment,
+                            bundle
+                        )
                     }
                 }
             }
@@ -85,12 +90,12 @@ class LoginFragment :  Fragment(R.layout.login_layout) {
             .setTextColor(Color.BLUE)
             .setUnderlined(true)
             .setOnClickListener {
-                val targetFragment = RegisterFragment()
+                findNavController().navigate(
+                    R.id.action_loginFragment_to_registerFragment,
 
-                val transaction = childFragmentManager.beginTransaction()
-                transaction.replace(R.id.fragment_container, targetFragment) // Replace 'fragment_container' with your container view's ID
-                transaction.addToBackStack(null) // Allow navigating back
-                transaction.commit()
+
+
+                )
                 }
 
 

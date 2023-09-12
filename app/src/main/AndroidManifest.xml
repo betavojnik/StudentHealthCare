@@ -12,19 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentHealthCare"
         tools:targetApi="31" >
-        <activity
-            android:name=".ui.screens.LogInActivity"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
         <activity
             android:name=".ui.screens.MainActivity"
             android:exported="true" >
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
