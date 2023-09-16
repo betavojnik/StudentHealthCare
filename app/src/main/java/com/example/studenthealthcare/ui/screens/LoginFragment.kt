@@ -33,11 +33,11 @@ class LoginFragment :  Fragment(R.layout.login_layout) {
 
         val dao: StudentDAO = FacultyDB.getInstance(requireActivity()).studentDAO
         val students : List<Student> = listOf(
-            Student("1", "Nedeljko", "idegas", "neso", "babic", 2020,3),
-            Student("2", "Marko", "Markovic", "neso", "babic", 2020,3)
+            Student("peki", "peki123", "Petar", "Petrovic", 2020, 3),
+            Student("zeki", "zeki123", "Zvezdan", "Jovanovic", 2019, 4)
         )
         val vaccines : List<Vaccine> = listOf(
-            Vaccine("1", "AH1", 15)
+            Vaccine("AH12", 5)
         )
 
         val ref : List<StudentVaccineCrossRef> = listOf(

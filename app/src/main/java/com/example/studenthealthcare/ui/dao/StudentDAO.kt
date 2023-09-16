@@ -41,4 +41,7 @@ interface StudentDAO {
 
     @Query("DELETE FROM StudentVaccineCrossRef")
     suspend fun deleteAllCrossRef()
+
+    @Query("SELECT * FROM student WHERE  StudentId= :User and Password =:Pass")
+    suspend fun getStudentsWithUserAndPass(User: String, Pass: String ): List<Student>
 }
